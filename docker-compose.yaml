@@ -1,0 +1,32 @@
+version: '3.0'
+#############################
+# Markus Hilsenbeck
+# Feb 2022
+# svnserver with svn:// protocol
+#
+    
+services:
+  svnserver:
+    build: 
+      context: ./docker-context/
+      dockerfile: Dockerfile
+      args: 
+        - CACHE_DATE="not_set"
+    image: svnserver.svn:local
+    container_name: svnserver.svn
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    restart: always
+    environment:
+      - ENABLE_SVNSERVER=true
+      - ENABLE_CRON=false
+    ports:
+      - 0.0.0.0:3690:3690/tcp
+    volumes:
+      #- /etc/timezone:/etc/timezone:ro   # for others
+      - /etc/TZ:/etc/timezone:ro          # for DSM7
+      - /etc/localtime:/etc/localtime:ro
+      - ./volume/svnrepo:/volume/svnrepo:rw
+
+    # use default bride network 
+    network_mode: bridge
