@@ -2,7 +2,11 @@
 
 This Docker Subversion Server offers access via svn protocoll.
 
-This Docker container is intended to run on **Synology DSM 7.0**, as a replacement for the SVN server package (dropped by Synology). However, it can be used on other servers as well. (maybe with small adaptions.)
+This Docker container is intended to run on **Synology DSM 7.x**, as a replacement for the SVN server package (dropped by Synology). However, it can be used on other servers as well. (maybe with small adaptions.)
+
+There are two variants available: (I recommend the svn version)
+- **<https://github.com/MarkusH1975/svnserver.svn.mh>**
+- <https://github.com/MarkusH1975/svnserver.apache.mh>
 
 ---
 
@@ -187,29 +191,29 @@ Sometimes docker build has problems to recognize that the build cache should be 
 
 This project was inspired by different Github projects and other sources, see some links below.
 
-<https://github.com/krallin/tini>
-<https://github.com/phusion/baseimage-docker>
-<https://github.com/elleFlorio/svn-docker>
-<https://github.com/smezger/svn-server-ubuntu>
-<https://github.com/jocor87/docker-svn-ifsvnadmin>
-<https://github.com/MarvAmBass/docker-subversion>
-<https://github.com/ZevenFang/docker-svn-ifsvnadmin>
-<https://github.com/garethflowers/docker-svn-server>
+<https://github.com/krallin/tini><br>
+<https://github.com/phusion/baseimage-docker><br>
+<https://github.com/elleFlorio/svn-docker><br>
+<https://github.com/smezger/svn-server-ubuntu><br>
+<https://github.com/jocor87/docker-svn-ifsvnadmin><br>
+<https://github.com/MarvAmBass/docker-subversion><br>
+<https://github.com/ZevenFang/docker-svn-ifsvnadmin><br>
+<https://github.com/garethflowers/docker-svn-server><br>
 
-<https://github.com/mfreiholz/iF.SVNAdmin>
+<https://github.com/mfreiholz/iF.SVNAdmin><br>
 
-<https://kb.synology.com/en-sg/DSM/tutorial/How_to_launch_an_SVN_server_based_on_Docker_on_your_Synology_NAS>
-<https://goinbigdata.com/docker-run-vs-cmd-vs-entrypoint/>
-<https://docs.docker.com/config/containers/multi-service_container/>
-<https://github.com/docker-library/official-images#init>
-<https://www.cyberciti.biz/faq/howto-regenerate-openssh-host-keys/>
-<https://svnbook.red-bean.com/en/1.7/svn.serverconfig.choosing.html>
+<https://kb.synology.com/en-sg/DSM/tutorial/How_to_launch_an_SVN_server_based_on_Docker_on_your_Synology_NAS><br>
+<https://goinbigdata.com/docker-run-vs-cmd-vs-entrypoint/><br>
+<https://docs.docker.com/config/containers/multi-service_container/><br>
+<https://github.com/docker-library/official-images#init><br>
+<https://www.cyberciti.biz/faq/howto-regenerate-openssh-host-keys/><br>
+<https://svnbook.red-bean.com/en/1.7/svn.serverconfig.choosing.html><br>
 
-<https://serverfault.com/questions/156470/testing-for-a-script-that-is-waiting-on-stdin>
-<https://stackoverflow.com/a/42599638>
-<https://stackoverflow.com/a/39150040>
-<https://stackoverflow.com/q/70637123>
+<https://serverfault.com/questions/156470/testing-for-a-script-that-is-waiting-on-stdin><br>
+<https://stackoverflow.com/a/42599638><br>
+<https://stackoverflow.com/a/39150040><br>
+<https://stackoverflow.com/q/70637123><br>
 
-<https://serverfault.com/questions/23644/how-to-use-linux-username-and-password-with-subversion>
+<https://serverfault.com/questions/23644/how-to-use-linux-username-and-password-with-subversion><br>
 
-<https://stackoverflow.com/a/69081169>
+<https://stackoverflow.com/a/69081169><br>
