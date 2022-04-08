@@ -20,16 +20,25 @@ init_volume_folder () {
   if [ ! -d "/volume/$1" ]; then
     echo -e " * Create volume folder and set permissions: /volume/$1."
     mkdir -pv /volume/$1
-    chown -Rv www-data /volume/$1
     chmod -Rfv 777 /volume/$1
   else
-    echo -e " * Nothing to do, folder exists: /volume/$1."
+    echo -e " * No need to create, folder exist already: /volume/$1."
   fi
+}
+
+copy_volume_folder () {
+	if [ ! "$(ls -A /volume/$1 | grep -v '.gitignore')" ]; then
+    echo -e " * Empty volume folder, /volume/$1, copy files from /volume.template/$1"
+    cp -fvra /volume.template/$1/* /volume/$1/
+    chmod -Rfv 777 /volume/$1
+  else
+    echo -e " * Nothing to copy, folder not empty: /volume/$1."
+	fi
 }
 
 ####################################### init volume folders
  
-  init_volume_folder "svnrepo"
+init_volume_folder "svnrepo"
 
 
 ####################################### Services START/STOP
@@ -38,6 +47,7 @@ init_volume_folder () {
 function START_cron()
 {
   if [[ "$ENABLE_CRON" != "true" ]] ; then
+    echo -e " * Cron disabled."
     return
   fi
 
@@ -47,7 +57,9 @@ function START_cron()
 
 function STOP_cron()
 {
-  if [[ "$ENABLE_CRON" != "true" ]] ; then
+  echo -e " * Stopping cron."
+  /etc/init.d/cron stop
+}
     return
   fi
 
@@ -60,6 +72,7 @@ function STOP_cron()
 function START_svnserver()
 {
   if [[ "$ENABLE_SVNSERVER" != "true" ]] ; then
+    echo -e " * Svnserver disabled."
     return
   fi
 
@@ -69,10 +82,6 @@ function START_svnserver()
 
 function STOP_svnserver()
 {
-  if [[ "$ENABLE_SVNSERVER" != "true" ]] ; then
-    return
-  fi
-  
   echo -e " * Stopping svnserve: done by tini."
 }
 

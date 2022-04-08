@@ -17,14 +17,18 @@ RUN chmod +x /tini
 ENTRYPOINT ["/tini", "-w", "-v", "--"]
       
 
-# Install svn
+RUN mkdir -p /volume/svnrepo
+
+
+# Installation
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install --no-install-recommends -y apt-utils && \
     apt-get install --no-install-recommends -y \
-    vim nano sudo wget curl unzip lsof \
+    vim nano sudo wget curl unzip lsof psmisc\
     locales \
     cron \
+    ca-certificates \
     subversion \
     && apt-get clean && apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
@@ -37,19 +41,19 @@ RUN locale-gen \
     en_US.UTF-8
 
 
-# volume: create directories
-RUN mkdir -p /volume/svnrepo
-
 # volume: set permissions
 RUN chmod -Rfv 777 /volume/svnrepo
 
+# volume: copy everything to the template folder for automatic generation
+RUN cp -fvra /volume /volume.template
 
-#Ports to be exposed by container
+#Ports exposed by the container
+# svn protocol: svn://
 EXPOSE 3690
 
 # Environment variables: select services to be started
-ENV ENABLE_SVNSERVER=true \
-    ENABLE_CRON=false
+ENV ENABLE_CRON=false \
+    ENABLE_SVNSERVER=true 
 
 # To force docker build to invalidate cache from now on, to be sure entrypoint.sh is updated
 # docker build --build-arg CACHE_DATE=$(date +%Y-%m-%d:%H:%M:%S) -t svnserver.apache .
