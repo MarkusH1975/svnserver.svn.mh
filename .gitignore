@@ -1,0 +1,8 @@
+volume/monitorix.conf/*
+!volume/monitorix.conf/.gitignore
+
+volume/monitorix.data/*
+!volume/monitorix.data/.gitignore
+
+volume/svnrepo/*
+!volume/svnrepo/.gitignore

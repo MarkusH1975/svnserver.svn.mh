@@ -18,13 +18,14 @@ services:
     tty: true        # docker run -t
     restart: always
     environment:
-      - ENABLE_SVNSERVER=true
       - ENABLE_CRON=false
+      - ENABLE_SVNSERVER=true
     ports:
+      # svn protocol: svn://
       - 0.0.0.0:3690:3690/tcp
     volumes:
-      #- /etc/timezone:/etc/timezone:ro   # for others
-      - /etc/TZ:/etc/timezone:ro          # for DSM7
+      #- /etc/TZ:/etc/timezone:ro           # enable for DSM7
+      #- /etc/timezone:/etc/timezone:ro     # enable for others
       - /etc/localtime:/etc/localtime:ro
       - ./volume/svnrepo:/volume/svnrepo:rw
 

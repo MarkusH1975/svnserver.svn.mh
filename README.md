@@ -27,9 +27,9 @@ There are two variants available: (I recommend the svn version)
   - [Image Components](#image-components)
     - [Ubuntu 21.10](#ubuntu-2110)
     - [Tini-Init process](#tini-init-process)
-    - [SVN server](#svn-server)
-    - [Cron](#cron)
     - [Entrypoint-Script](#entrypoint-script)
+    - [Cron](#cron)
+    - [SVN server](#svn-server)
   - [Docker build (force cache invalidation)](#docker-build-force-cache-invalidation)
   - [Links](#links)
 
@@ -148,8 +148,8 @@ Environment variables to control `entrypoint.sh` script. Already set by default.
 
 | Env var | Description |
 | ------- | ----------- |
-| `ENABLE_SVNSERVER=true`  |  Start svnserve  |
 | `ENABLE_CRON=false`   |  Start cron, not used. Set to true if you want to set up cron jobs, e.g. for creation of regular backups. |
+| `ENABLE_SVNSERVER=true`  |  Start svnserve  |
 
 ---
 
@@ -164,20 +164,22 @@ Was chosen as the latest Ubuntu release.
 Tini is added to have a valid init process, running as PID1. Read more information on the project page. <https://github.com/krallin/tini>.
 Tini init process together with the provided entrypoint-script, is able to **run multiple services**, including graceful shutdown. It can be used as a template for other docker projects. If you attach to the container, the entrypoint-script offers a micro CLI. Type `help` for help.
 
-### SVN server
-
-SVN server `svnserve` is started and listen on port 3690.
-
-### Cron
-
-Optionally cron can be started. It is currently not used in this container and therefore by default disabled.
-
 ### Entrypoint-Script
 
 The `entrypoint.sh` is the central bash script, which is started from tini. It can start multiple services and offers graceful shutdown of the started services. (Tini jumps in for unhandled processes.)
 Furthermore the script will **initialize** the defined **volume folder**.
 
 Since this script is the main docker process, it cannot end and needs to run in an endless loop. To make something useful, it offers a **micro command line interface**, which can be accessed via **docker attach**. Please attach to it and type `help` for more information.
+
+### Cron
+
+Optionally cron can be started. It is currently not used in this container and therefore by default disabled.
+
+
+
+### SVN server
+
+SVN server `svnserve` is started and listen on port 3690.
 
 ---
 
@@ -217,3 +219,5 @@ This project was inspired by different Github projects and other sources, see so
 <https://serverfault.com/questions/23644/how-to-use-linux-username-and-password-with-subversion><br>
 <https://stackoverflow.com/questions/27131309/difference-between-svnrdump-dump-svnadmin-dump><br>
 <https://stackoverflow.com/a/69081169><br>
+
+
