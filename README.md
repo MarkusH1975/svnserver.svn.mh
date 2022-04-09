@@ -29,6 +29,7 @@ There are two variants available: (I recommend the svn version)
     - [Tini-Init process](#tini-init-process)
     - [Entrypoint-Script](#entrypoint-script)
     - [Cron](#cron)
+    - [Monitorix](#monitorix)
     - [SVN server](#svn-server)
   - [Docker build (force cache invalidation)](#docker-build-force-cache-invalidation)
   - [Links](#links)
@@ -134,12 +135,15 @@ If you don't want to checkout your repository again after the move to Docker, yo
 
 | Mountpoint | Container Folder | Description |
 | - | - | - |
+| `./volume/monitorix.conf/` | `/etc/monitorix/` | Monitorix configuration. |
+| `./volume/monitorix.data/` | `/var/lib/monitorix/` | Monitorix data. |
 | `./volume/svnrepo/` | `/volume/svnrepo/` | Folder for SVN repositories. |
 
 ### Ports
 
 | Host Port | Container Port | Description |
 | - | - | - |
+`0.0.0.0:8890 TCP` | `8080 TCP` | monitorix, http://serverip:8890/monitorix
 `0.0.0.0:3690 TCP` | `3690 TCP` | svnserve port for svn:// protocol
 
 ### Environment Variables
@@ -149,6 +153,7 @@ Environment variables to control `entrypoint.sh` script. Already set by default.
 | Env var | Description |
 | ------- | ----------- |
 | `ENABLE_CRON=false`   |  Start cron, not used. Set to true if you want to set up cron jobs, e.g. for creation of regular backups. |
+| `ENABLE_MONITORIX=false`  |  Start monitorix, system monitoring tool.  |
 | `ENABLE_SVNSERVER=true`  |  Start svnserve  |
 
 ---
@@ -175,7 +180,9 @@ Since this script is the main docker process, it cannot end and needs to run in 
 
 Optionally cron can be started. It is currently not used in this container and therefore by default disabled.
 
+### Monitorix
 
+Monitorix is a lightweight system monitoring tool. Optionally started to monitor docker container activity. It is by default disabled in docker compose. It will need some time until you will see the first data, **be patient**. It is reachable with `http://serverip:8890/monitorix`.
 
 ### SVN server
 
@@ -220,4 +227,6 @@ This project was inspired by different Github projects and other sources, see so
 <https://stackoverflow.com/questions/27131309/difference-between-svnrdump-dump-svnadmin-dump><br>
 <https://stackoverflow.com/a/69081169><br>
 
+<https://www.monitorix.org/><br>
+<https://www.monitorix.org/faq.html><br>
 

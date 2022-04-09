@@ -38,6 +38,12 @@ copy_volume_folder () {
 
 ####################################### init volume folders
  
+init_volume_folder "monitorix.conf"
+copy_volume_folder "monitorix.conf"
+
+init_volume_folder "monitorix.data"
+copy_volume_folder "monitorix.data"
+
 init_volume_folder "svnrepo"
 
 
@@ -60,11 +66,23 @@ function STOP_cron()
   echo -e " * Stopping cron."
   /etc/init.d/cron stop
 }
+
+####################################### monitorix
+function START_monitorix()
+{
+  if [[ "$ENABLE_MONITORIX" != "true" ]] ; then
+    echo -e " * Monitorix disabled."
     return
   fi
 
-  echo -e " * Stopping cron."
-  /etc/init.d/cron stop
+  echo -e " * Starting monitorix."
+  /etc/init.d/monitorix start
+}
+
+function STOP_monitorix()
+{
+  echo -e " * Stopping monitorix."
+  /etc/init.d/monitorix stop
 }
 
 
@@ -99,6 +117,7 @@ function SIGTERM_handler()
     echo -e "\n * Received SIGTERM/STOP: graceful shutdown services."
 
     STOP_cron
+    STOP_monitorix
     STOP_svnserver
 
     exit 0;
@@ -110,6 +129,7 @@ trap SIGTERM_handler SIGTERM
 
 ################### start services ###################
 START_cron
+START_monitorix
 START_svnserver
 
 
