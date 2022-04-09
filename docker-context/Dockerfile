@@ -17,6 +17,13 @@ RUN chmod +x /tini
 ENTRYPOINT ["/tini", "-w", "-v", "--"]
       
 
+# volume: create directories and links
+RUN mkdir -p /volume/monitorix.conf && \
+    ln -s /volume/monitorix.conf/ /etc/monitorix
+
+RUN mkdir -p /volume/monitorix.data && \
+    ln -s /volume/monitorix.data/ /var/lib/monitorix
+
 RUN mkdir -p /volume/svnrepo
 
 
@@ -29,6 +36,7 @@ RUN apt-get update && \
     locales \
     cron \
     ca-certificates \
+    monitorix \
     subversion \
     && apt-get clean && apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
@@ -42,17 +50,22 @@ RUN locale-gen \
 
 
 # volume: set permissions
+RUN chmod -Rfv 777 /volume/monitorix.conf
+RUN chmod -Rfv 777 /volume/monitorix.data
 RUN chmod -Rfv 777 /volume/svnrepo
 
 # volume: copy everything to the template folder for automatic generation
 RUN cp -fvra /volume /volume.template
 
 #Ports exposed by the container
+# monitorix: http://localhost:8080/monitorix/
+EXPOSE 8080
 # svn protocol: svn://
 EXPOSE 3690
 
 # Environment variables: select services to be started
 ENV ENABLE_CRON=false \
+    ENABLE_MONITORIX=true \
     ENABLE_SVNSERVER=true 
 
 # To force docker build to invalidate cache from now on, to be sure entrypoint.sh is updated

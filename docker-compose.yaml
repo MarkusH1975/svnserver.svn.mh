@@ -19,14 +19,19 @@ services:
     restart: always
     environment:
       - ENABLE_CRON=false
+      - ENABLE_MONITORIX=false  # default: false
       - ENABLE_SVNSERVER=true
     ports:
       # svn protocol: svn://
       - 0.0.0.0:3690:3690/tcp
+       # monitorix: http://localhost:8080/monitorix/
+      - 0.0.0.0:8890:8080/tcp
     volumes:
       #- /etc/TZ:/etc/timezone:ro           # enable for DSM7
       #- /etc/timezone:/etc/timezone:ro     # enable for others
       - /etc/localtime:/etc/localtime:ro
+      - ./volume/monitorix.conf:/volume/monitorix.conf:rw
+      - ./volume/monitorix.data:/volume/monitorix.data:rw
       - ./volume/svnrepo:/volume/svnrepo:rw
 
     # use default bride network 
