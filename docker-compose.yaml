@@ -35,5 +35,11 @@ services:
       - ./volume/monitorix.data:/volume/monitorix.data:rw
       - ./volume/svnrepo:/volume/svnrepo:rw
 
-    # use default bride network 
-    network_mode: bridge
+    networks:
+      - svnserver_network
+
+# define networks
+networks:
+  svnserver_network:
+    name: svnserver_network
+    driver: bridge
