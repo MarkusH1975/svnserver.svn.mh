@@ -17,6 +17,7 @@ services:
     stdin_open: true # docker run -i
     tty: true        # docker run -t
     restart: always
+    hostname: svnserver
     environment:
       - ENABLE_CRON=false
       - ENABLE_MONITORIX=false  # default: false
