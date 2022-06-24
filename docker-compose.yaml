@@ -1,7 +1,6 @@
 version: '3.0'
 #############################
 # Markus Hilsenbeck
-# Feb 2022
 # svnserver with svn:// protocol
 #
     

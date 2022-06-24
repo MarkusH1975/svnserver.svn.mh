@@ -25,7 +25,7 @@ There are two variants available: (I recommend the svn version)
     - [Ports](#ports)
     - [Environment Variables](#environment-variables)
   - [Image Components](#image-components)
-    - [Ubuntu 21.10](#ubuntu-2110)
+    - [Ubuntu 22.04](#ubuntu-2204)
     - [Tini-Init process](#tini-init-process)
     - [Entrypoint-Script](#entrypoint-script)
     - [Cron](#cron)
@@ -160,7 +160,7 @@ Environment variables to control `entrypoint.sh` script. Already set by default.
 
 ## Image Components
 
-### Ubuntu 21.10
+### Ubuntu 22.04
 
 Was chosen as the latest Ubuntu release.
 
