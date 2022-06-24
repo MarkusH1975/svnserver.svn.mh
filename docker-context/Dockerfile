@@ -1,9 +1,8 @@
 #############################
 # Markus Hilsenbeck
 # svnserver with svn:// protocol
-# Feb 2022
 
-FROM ubuntu:21.10
+FROM ubuntu:22.04
 
 LABEL Maintainer="Markus Hilsenbeck" \
       E-Mail="markus.dev@hilsi.de" \
