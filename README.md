@@ -18,7 +18,9 @@ There are two variants available: (I recommend the svn version)
     - [SVN copy existing repository](#svn-copy-existing-repository)
     - [SVN create new repository](#svn-create-new-repository)
     - [SVN access control](#svn-access-control)
-    - [SVN checkout](#svn-checkout)
+    - [SVN checkout on client](#svn-checkout-on-client)
+    - [SVN first commit on client](#svn-first-commit-on-client)
+    - [SVN client password storage](#svn-client-password-storage)
     - [Relocation of your working copy](#relocation-of-your-working-copy)
   - [Docker configurations](#docker-configurations)
     - [Volumes](#volumes)
@@ -100,24 +102,70 @@ To configure the ACL via svn:// protocol, go to your repository's subfolder conf
 
 ```bash
 cd /volume1/svn/svnserver.svn.mh/volume/svnrepo/myRepo1/conf/
-vim passwd
+```
+
+Configure svnserve as follows `myRepo1`:
+
+```
+sudo vim svnserve.conf 
+
+
+[general]
+# set anonymus access to none (default is read)
+anon-access = none
+
+# set authenticated access to write
+auth-access = write
+
+# set password storage file
+password-db = passwd
 ```
 
 Set username and password for `myRepo1`:
 
 ```
+sudo vim passwd
+
 [users]
-myUsername1=MyPassword1
-myUsername2=MyPassword2
+harry = harryssecret
+sally = sallyssecret
 ```
 
-### SVN checkout
+### SVN checkout on client
 
-Now you can checkout your repository with
+Now you can checkout your repository with on the client 
 
 ```bash
-svn co svn://serverip/myRepo1/
+svn co --username harry svn://serverip/myRepo1/
 ```
+
+
+### SVN first commit on client
+
+```bash
+
+cd myRepo1
+svn info 
+
+touch testfile.txt
+svn add testfile.txt
+svn commit -m "First commit"
+
+```
+
+### SVN client password storage
+
+Password storage on client side seems to depend on the svn version and settings in your local config files. Checkout Goolge. Plain password storage is meanwhile disabled: https://stackoverflow.com/a/61493621
+
+```bash
+
+vim ~/.subversion/config
+vim ~/.subversion/server
+
+svn --version
+
+```
+
 
 ### Relocation of your working copy
 
