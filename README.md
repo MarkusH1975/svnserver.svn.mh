@@ -9,10 +9,16 @@ There are two variants available: (I recommend the svn version)
 - <https://github.com/MarkusH1975/svnserver.apache.mh>
 
 ---
+<b>Long-Term solution</b><br>
+Meanwhile I switched to Git running Gitea Server from the SynoCommunity. It works quite well for me.
+<br><https://synocommunity.com/package/gitea>
+
+
+---
 
 - [Docker Subversion Server with svn:// protocol](#docker-subversion-server-with-svn-protocol)
   - [SVN Access Methods](#svn-access-methods)
-  - [Quick start for Synology DSM 7.0 users](#quick-start-for-synology-dsm-70-users)
+  - [Quick start for Synology DSM 7.x users](#quick-start-for-synology-dsm-7x-users)
     - [Preconditions](#preconditions)
     - [Build and Run the container](#build-and-run-the-container)
     - [SVN copy existing repository](#svn-copy-existing-repository)
@@ -52,7 +58,7 @@ See: <https://svnbook.red-bean.com/en/1.7/svn.serverconfig.choosing.html>
 
 ---
 
-## Quick start for Synology DSM 7.0 users
+## Quick start for Synology DSM 7.x users
 
 Quick start instructions for users not interested in details.
 
@@ -60,7 +66,7 @@ Quick start instructions for users not interested in details.
 
 Following is assumed:
 
-- You run Synology DSM 7.0 on your NAS (can be tested with 6.2 before update)
+- You run Synology DSM 7.x on your NAS (can be tested with 6.2 before update)
 - Docker package is installed
 - SVN repos are stored in `/volume1/svn/`
 - Optional: Git server package is installed (for cloning from github)
